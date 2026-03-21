@@ -25,8 +25,8 @@ def clf_do(X, y, size, NB_class):
     return clf.score(X_train, y_train), clf.score(X_test, y_test)
 
 
-df_ttt = pd.read_csv('source/tic_tac_toe.txt', delimiter=",", header=None)
-df_spam = pd.read_csv('source/spam.csv')
+df_ttt = pd.read_csv('../source/data_1/tic_tac_toe.txt', delimiter=",", header=None)
+df_spam = pd.read_csv('../source/data_1/spam.csv')
 
 X_ttt = (df_ttt.iloc[:, :-1] == 'x').astype(int)
 y_ttt = (df_ttt.iloc[:, -1] == 'positive').astype(int)

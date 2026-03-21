@@ -3,13 +3,13 @@ import math
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
-data_frame_glass = pd.read_csv('source/glass.csv', delimiter=",", usecols=[1, 2, 3, 4, 5, 6,7,8,9,10])
+data_frame_glass = pd.read_csv('../source/data_3/glass.csv', delimiter=",", usecols=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
-X_glass = (data_frame_glass.iloc[:, :-1]).astype(float)
-y_glass = (data_frame_glass.iloc[:, -1]).astype(int)
+X_glass = data_frame_glass.iloc[:, :-1]
+y_glass = data_frame_glass.iloc[:, -1]
 
 X_train, X_test, y_train, y_test = train_test_split(
-    X_glass, y_glass, random_state=42
+    X_glass, y_glass, random_state=52
 )
 
 
@@ -74,7 +74,7 @@ def calculate_knn(k, metric):
 
 # ПРОСТОЙ ГРАФИК ЗАВИСИМОСТИ ОШИБКИ ОТ K
 def draw_plot(metric):
-    k_values = range(1, 16)  # проверяем k от 1 до 15
+    k_values = range(1, 16)  # проверяем k от data_1 до 15
     test_errors = []
 
     for k in k_values:
@@ -98,5 +98,5 @@ draw_plot('minkowski')
 
 new_glass = [1.516, 11.7, 1.01, 1.19, 72.59, 0.43, 11.44, 0.02, 0.1]
 
-neighbors = get_neighbors(X_train, y_train, new_glass, 'euclidean', 1)
+neighbors = get_neighbors(X_train, y_train, new_glass, 'euclidean', 4)
 print(prediction(neighbors))
