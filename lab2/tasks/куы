@@ -1,0 +1,8 @@
+100.0%
+100.0%
+100.0%
+100.0%
+Epoch 1/3, Avg Loss: 0.1749
+Epoch 2/3, Avg Loss: 0.0530
+Epoch 3/3, Avg Loss: 0.0381
+Test Accuracy: 98.66%

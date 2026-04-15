@@ -3,7 +3,7 @@ import math
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
-data_frame_glass = pd.read_csv('../source/data_3/glass.csv', delimiter=",", usecols=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+data_frame_glass = pd.read_csv('../source/glass.csv', delimiter=",", usecols=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
 X_glass = data_frame_glass.iloc[:, :-1]
 y_glass = data_frame_glass.iloc[:, -1]

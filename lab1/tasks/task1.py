@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.naive_bayes import BernoulliNB, MultinomialNB
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 
 
@@ -8,7 +9,7 @@ def plot(sizes, train_scores, test_scores):
     plt.figure(figsize=(10, 6))
     plt.plot(sizes, train_scores, label='Train')
     plt.plot(sizes, test_scores, label='Test')
-    plt.xlabel('Размер выборки')
+    plt.xlabel('Размер выборки обучающей выборки')
     plt.ylabel('Точность')
     plt.title('Кривые обучения')
     plt.legend()
@@ -22,11 +23,11 @@ def clf_do(X, y, size, NB_class):
     )
     clf = NB_class()
     clf.fit(X_train, y_train)
-    return clf.score(X_train, y_train), clf.score(X_test, y_test)
+    return accuracy_score(y_train, clf.predict(X_train)), accuracy_score(y_test, clf.predict(X_test))
 
 
-df_ttt = pd.read_csv('../source/data_1/tic_tac_toe.txt', delimiter=",", header=None)
-df_spam = pd.read_csv('../source/data_1/spam.csv')
+df_ttt = pd.read_csv('../source/tic_tac_toe.txt', delimiter=",", header=None)
+df_spam = pd.read_csv('../source/spam.csv')
 
 X_ttt = (df_ttt.iloc[:, :-1] == 'x').astype(int)
 y_ttt = (df_ttt.iloc[:, -1] == 'positive').astype(int)
@@ -46,6 +47,7 @@ for size in train_sizes:
     train_score, test_score = clf_do(X_spam, y_spam, size, MultinomialNB)
     train_scores_spam.append(train_score)
     test_scores_spam.append(test_score)
+
 
 plot(train_sizes, train_scores_ttt, test_scores_ttt)
 plot(train_sizes, train_scores_spam, test_scores_spam)
