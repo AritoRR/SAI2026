@@ -86,8 +86,8 @@ def clf_test_gamma(kernel, X_train, y_train, X_test, y_test, degree=None):
 print("SVMDATA A:")
 
 X_train, y_train, X_test, y_test = get_data_frame(
-    '../source/data_4/svmdata_a.txt',
-    '../source/data_4/svmdata_a_test.txt')
+    '../src/data_4/svmdata_a.txt',
+    '../src/data_4/svmdata_a_test.txt')
 
 clf = svm.SVC(kernel='linear')
 clf.fit(X_train, y_train)
@@ -109,8 +109,8 @@ print_cm(y_test, y_predict)
 print("SVMDATA B:")
 
 X_train, y_train, X_test, y_test = get_data_frame(
-    '../source/data_4/svmdata_b.txt',
-    '../source/data_4/svmdata_b_test.txt')
+    '../src/data_4/svmdata_b.txt',
+    '../src/data_4/svmdata_b_test.txt')
 
 print("Train:")
 for C in [1000, 100, 10, 1.0, 0.1, 0.01]:
@@ -139,8 +139,8 @@ for C in [1000, 100, 10, 1.0, 0.1, 0.01]:
 print("SVMDATA С:")
 
 X_train, y_train, X_test, y_test = get_data_frame(
-    '../source/data_4/svmdata_c.txt',
-    '../source/data_4/svmdata_c_test.txt')
+    '../src/data_4/svmdata_c.txt',
+    '../src/data_4/svmdata_c_test.txt')
 
 for kernel in ['linear', 'poly', 'sigmoid', 'rbf']:
     if kernel == 'poly':
@@ -155,8 +155,8 @@ for kernel in ['linear', 'poly', 'sigmoid', 'rbf']:
 print("SVMDATA D:")
 
 X_train, y_train, X_test, y_test = get_data_frame(
-    '../source/data_4/svmdata_d.txt',
-    '../source/data_4/svmdata_d_test.txt')
+    '../src/data_4/svmdata_d.txt',
+    '../src/data_4/svmdata_d_test.txt')
 
 for kernel in ['poly', 'sigmoid', 'rbf']:
     if kernel == 'poly':
@@ -171,8 +171,8 @@ for kernel in ['poly', 'sigmoid', 'rbf']:
 print("SVMDATA E:")
 
 X_train, y_train, X_test, y_test = get_data_frame(
-    '../source/data_4/svmdata_e.txt',
-    '../source/data_4/svmdata_e_test.txt')
+    '../src/data_4/svmdata_e.txt',
+    '../src/data_4/svmdata_e_test.txt')
 
 for kernel in ['poly', 'sigmoid', 'rbf']:
     if kernel == 'poly':

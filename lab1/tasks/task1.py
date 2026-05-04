@@ -26,8 +26,8 @@ def clf_do(X, y, size, NB_class):
     return accuracy_score(y_train, clf.predict(X_train)), accuracy_score(y_test, clf.predict(X_test))
 
 
-df_ttt = pd.read_csv('../source/tic_tac_toe.txt', delimiter=",", header=None)
-df_spam = pd.read_csv('../source/spam.csv')
+df_ttt = pd.read_csv('../src/tic_tac_toe.txt', delimiter=",", header=None)
+df_spam = pd.read_csv('../src/spam.csv')
 
 X_ttt = (df_ttt.iloc[:, :-1] == 'x').astype(int)
 y_ttt = (df_ttt.iloc[:, -1] == 'positive').astype(int)

@@ -5,11 +5,11 @@ from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, confusion_m
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
-df = pd.read_csv('../source/bank_scoring_train.csv', delimiter="\t")
+df = pd.read_csv('../src/bank_scoring_train.csv', delimiter="\t")
 X_train = df.iloc[:, 1:].values
 y_train = df.iloc[:, 0].values
 
-test_df = pd.read_csv('../source/bank_scoring_test.csv', delimiter="\t")
+test_df = pd.read_csv('../src/bank_scoring_test.csv', delimiter="\t")
 X_test = test_df.iloc[:, 1:].values
 y_test = test_df.iloc[:, 0].values
 

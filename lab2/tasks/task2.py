@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.model_selection import train_test_split
 
-df = pd.read_csv('../source/nn_1.csv', delimiter=",")
+df = pd.read_csv('../src/nn_1.csv', delimiter=",")
 
 X = df.iloc[:, :-1].values
 y = df.iloc[:, -1].values

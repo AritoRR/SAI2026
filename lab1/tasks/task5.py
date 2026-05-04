@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import accuracy_score, classification_report
 import matplotlib.pyplot as plt
 
-data_frame_glass = pd.read_csv('../source/glass.csv')
+data_frame_glass = pd.read_csv('../src/glass.csv')
 X = data_frame_glass.iloc[:, 1:-1]
 y = data_frame_glass.iloc[:, -1]
 
@@ -42,7 +42,7 @@ plt.tight_layout()
 plt.show()
 
 
-df_spam7 = pd.read_csv('../source/spam7.csv')
+df_spam7 = pd.read_csv('../src/spam7.csv')
 X = df_spam7.drop('yesno', axis=1)
 y = df_spam7['yesno'].map({'y': 1, 'n': 0})
 
