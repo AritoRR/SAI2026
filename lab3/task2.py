@@ -1,4 +1,8 @@
+import csv
+
+
 import numpy as np
+from scipy.constants import metric_ton
 from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering
 from sklearn.metrics import silhouette_score
 import pandas as pd
@@ -6,16 +10,23 @@ import matplotlib.pyplot as plt
 from sklearn.neighbors import NearestNeighbors
 from sklearn.preprocessing import StandardScaler
 
+file = open("result_save.csv", "w", newline='')
+writer = csv.writer(file)
+writer.writerow(['id', 'silhouette_score', 'eps', 'min_samples', 'algorithm', 'min_samples', 'procent_cal'])
+
 
 def silhouette_safe(data, labels):
-    if len(set(labels)) > 1 and -1 in labels:
-        # только не шум
-        mask = labels != -1
-        return silhouette_score(data[mask], labels[mask])
-    elif len(set(labels)) > 1:
-        return silhouette_score(data, labels)
-    else:
-        return -1  # один кластер или только шум
+    try:
+        if len(set(labels)) > 1 and -1 in labels:
+            # только не шум
+            mask = labels != -1
+            return silhouette_score(data[mask], labels[mask])
+        elif len(set(labels)) > 1:
+            return silhouette_score(data, labels)
+        else:
+            return -1  # один кластер или только шум
+    except Exception as e:
+        return -2
 
 
 def kmeans_cubit(data):
@@ -74,9 +85,8 @@ def kmeans_clustering_test(data, n_clusters):
     plt.show()
 
 
-
-def dbs_clustering_test(data, eps, min_samples):
-    dbs = DBSCAN(eps=eps, min_samples=min_samples)
+def dbs_clustering_test(data, eps, min_samples, metric, algorithm, id):
+    dbs = DBSCAN(eps=eps, min_samples=min_samples, metric=metric, algorithm=algorithm)
     dbs.fit(data)
 
     unique_labels = set(dbs.labels_)
@@ -89,10 +99,10 @@ def dbs_clustering_test(data, eps, min_samples):
             color = 'black'
             marker = 'x'
             label_name = 'Шум'
+
         else:
             marker = 'o'
             label_name = f'Кластер {label}'
-
         mask = (dbs.labels_ == label)
         plt.scatter(data[mask, 0], data[mask, 1],
                     c=color, s=30, marker=marker, label=label_name, alpha=0.7)
@@ -102,7 +112,11 @@ def dbs_clustering_test(data, eps, min_samples):
     plt.ylabel("Признак 2")
     plt.grid(True, linestyle='--', alpha=0.5)
     plt.show()
-    print(f"DBSCAN:  {silhouette_safe(data, dbs.labels_):.3f}")
+
+    count_all = len(list(dbs.labels_))
+    count_cal = list(dbs.labels_).count(-1)
+    writer.writerow([id, silhouette_safe(data, dbs.labels_), eps, metric, algorithm, min_samples, count_cal/count_all])
+    print(f"DBSCAN:  {silhouette_safe(data, dbs.labels_):.3f}" , count_cal, count_all)
 
 
 def agg_clustering_test(data, n_clusters):
@@ -123,15 +137,30 @@ def agg_clustering_test(data, n_clusters):
 # dbs_clustering_test(clustering_1, 0.2, 15)
 # agg_clustering_test(clustering_1, 2)
 
-print("clustering_2")
-clustering_2 = pd.read_csv('src/clustering_2.csv', delimiter='\t', header=None).values
-kmeans_clustering_test(clustering_2, 3)
-dbs_clustering_test(clustering_2, 0.3, 8)
-agg_clustering_test(clustering_2, 3)
+# print("clustering_2")
+# clustering_2 = pd.read_csv('src/clustering_2.csv', delimiter='\t', header=None).values
+# kmeans_clustering_test(clustering_2, 3)
+# dbs_clustering_test(clustering_2, 0.3, 8)
+# agg_clustering_test(clustering_2, 3)
 
 print("clustering_3")
 clustering_3 = pd.read_csv('src/clustering_3.csv', delimiter='\t', header=None).values
-kmeans_clustering_test(clustering_3, 2)
-dbs_clustering_test(clustering_3, 0.31, 9)
-agg_clustering_test(clustering_3, 2)
+# kmeans_clustering_test(clustering_3, 2)
 
+# agg_clustering_test(clustering_3, 2)
+
+metric_ = ['euclidean']
+eps_ = [0.4, 0.41, 0.42]
+min_samples_ = [17,18,19]
+algorithms_ = ['auto', 'ball_tree', 'kd_tree', 'brute']
+id = 0
+for metric in metric_:
+    for algorithm in algorithms_:
+        for eps in eps_:
+            for min_samples in min_samples_:
+                id += 1
+                dbs_clustering_test(clustering_3, eps, min_samples, metric, algorithm, id)
+
+file.close()
+
+# dbs_clustering_test(clustering_3, 0.4, 25, 'euclidean', 'auto', id)

@@ -9,7 +9,7 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn.metrics import accuracy_score
 
 df = pd.read_csv('src/vehicle.csv', delimiter=',')
-X = df.iloc[:, :-1].values
+X = df.iloc[:, 1:-1].values
 y = df.iloc[:, -1].values
 
 X_train, X_test, y_train, y_test = train_test_split(

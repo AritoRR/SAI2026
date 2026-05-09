@@ -54,19 +54,19 @@ class EnsembleClassifier:
 param = {
     'GaussianNativBayes': {
         'estimator': GaussianNB(),
-        'n_estimators_vs': [3, 5]
+        'n_estimators_vs': [10, 10]
     },
     'KNeighborsClassifier': {
         'estimator': KNeighborsClassifier(),
-        'n_estimators_vs': [1, 4]
+        'n_estimators_vs': [30, 30]
     },
     'SVC': {
         'estimator': svm.SVC(),
-        'n_estimators_vs': [7, 7]
+        'n_estimators_vs': [3, 5]
     },
     'DecisionTreeClassifier': {
         'estimator': DecisionTreeClassifier(),
-        'n_estimators_vs': [1, 2]
+        'n_estimators_vs': [30, 30]
     },
 }
 n_estimators_range = [1, 3, 5, 10, 20, 30, 50]
